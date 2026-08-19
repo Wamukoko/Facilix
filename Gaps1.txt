@@ -1,0 +1,70 @@
+The biggest opportunity is not to build another generic CMMS. **openMAINT is broad and highly configurable but can be difficult to deploy and operate; UpKeep is easy and mobile-first but can become restrictive, expensive, and shallow for complex facility operations.** A new app could win by combining openMAINT’s depth with UpKeep’s usability while solving frontline execution, offline work, integrations, contractor coordination, and reliability analytics.
+
+## Main gaps to exploit
+
+| Gap | openMAINT | UpKeep | Product opportunity |
+|---|---|---|---|
+| **Frontline usability** | Powerful, but its CMDBuild-style data model, workflows, and configuration can feel like an enterprise database rather than a technician tool. Its mobile app exposes many desktop functions, which may create complexity in the field. openMAINT’s mobile app supports cards, processes, reports, attachments, relations, filters, QR codes, and photos, but this breadth is not the same as a fast task-oriented field experience.  [openmaint](https://www.openmaint.org/en/product/mobile) | Stronger mobile-first workflow, but reviews still mention slow loading, inaccurate task listings, date issues, bugs, and a need for mobile improvements.  [g2](https://www.g2.com/products/upkeep/reviews?qs=pros-and-cons) | Create role-specific interfaces: “technician mode,” “supervisor mode,” “tenant mode,” and “executive mode.” Make the technician experience work with three actions: scan asset, follow guided procedure, close job. |
+| **Offline and poor-connectivity work** | The public documentation confirms mobile access, but does not clearly demonstrate robust offline-first operation. | Reviewers report cloud-dependence and limited offline capability, which is a major issue in basements, plant rooms, remote sites, and areas with unreliable connectivity.  [capterra](https://www.capterra.com/p/145635/UpKeep/reviews/) | Build true offline synchronization: cached asset records, checklists, drawings, manuals, signatures, photos, and work orders; conflict resolution; automatic sync when connected; and an audit trail showing when data was captured. |
+| **Complex multi-site operations** | openMAINT can model buildings, assets, locations, infrastructure, GIS, BIM, maintenance, logistics, and economic activities.  [openmaint](https://www.openmaint.org/en/sitemap) However, that breadth can require specialist implementation and data-model configuration. | UpKeep handles common work orders and PMs well, but third-party reviews cite manual configuration and limitations for complex multi-site deployments, particularly outside higher plans.  [capterra](https://www.capterra.com/p/145635/UpKeep/reviews/) | Offer a ready-made facility hierarchy: portfolio → campus → building → floor → room → system → equipment → component. Include site templates, bulk changes, inherited standards, cross-site benchmarking, and centralized governance. |
+| **Reliability intelligence** | It supports preventive and corrective maintenance, checklists, SLAs, costs, consumables, meters, and scheduling.  [openmaint](https://www.openmaint.org/en/resources/news/openmaint-2.2) | It offers work orders, PM, downtime tracking, costs, checklists, and analytics.  [upkeep](https://upkeep.com/demo/) But reviews suggest that serious MTBF, MTTR, OEE, and reliability analysis may require exporting data to another system.  [softabase](https://softabase.com/software/maintenance/upkeep) | Go beyond “PM completed.” Automatically detect repeat failures, bad actors, failure modes, overdue risk, asset criticality, and ineffective PMs. Recommend: “replace,” “redesign PM,” “inspect more frequently,” or “monitor condition.” |
+| **Data quality and closeout discipline** | A flexible system may allow many fields, workflows, and custom records, but flexibility can lead to inconsistent data entry between sites. | UpKeep’s own 2026 maintenance research identifies skipped documentation, incomplete records, poor failure-mode capture, and untrusted reporting as industry-wide execution problems.  [upkeep](https://upkeep.com/lp/state-of-maintenance-2026/) | Make high-quality data the natural result of completing work. Use controlled failure codes, mandatory-but-short closeout prompts, voice-to-structured notes, automatic extraction from photos, and validation such as “you replaced a motor—record reason, part, meter reading, and cause.” |
+| **Inventory and procurement depth** | openMAINT includes warehouses, stock, consumables, movements, transfers, usage, and inventory reports.  [openmaint](https://www.openmaint.org/en/product/modules/logistic-management) | Reviewers identify weaknesses involving purchase-order history, approvals, pricing updates, parts search, categories, and multi-location inventory.  [capterra](https://www.capterra.com/p/145635/UpKeep/reviews/) | Build maintenance-specific inventory: min/max levels, critical spares, substitute parts, compatible assets, reservations, van stock, barcode receiving, purchase approvals, lead-time risk, and automatic reorder recommendations. |
+| **Contractor and vendor performance** | It can support supplier quotes, assignment, labor, materials, costs, and pre-invoicing.  [openmaint](https://www.openmaint.org/en/resources/news/openmaint-2.1) | UpKeep markets vendor management, but many CMMS products treat contractors primarily as work-order assignees rather than as a complete operating network. UpKeep’s public facility-management feature list includes vendor management but emphasizes the standard CMMS functions.  [upkeep](https://upkeep.com/maintenance-software-for/facility-management/) | Give contractors a controlled portal: no-cost guest access, scope and method statements, permits, insurance expiry, site induction, SLA clock, evidence capture, quote comparison, invoice matching, and scorecards based on first-time fix rate and recurrence. |
+| **Building operations beyond maintenance** | openMAINT is unusually broad for property and facility management, covering real estate, GIS, BIM, logistics, maintenance, and economic activity.  [openmaint](https://www.openmaint.org/en) | UpKeep is primarily a maintenance and asset-operations platform. | Connect maintenance to occupancy, room bookings, tenant requests, energy, cleaning, inspections, security incidents, compliance, and capital planning. The differentiator should be “one facility operating picture,” not merely “more work orders.” |
+| **Reporting and customization economics** | openMAINT is configurable, but customers may need technical expertise to create and maintain custom models, reports, workflows, and integrations. | Reviews cite limited customization, basic reporting, higher-tier restrictions, and expensive scaling for larger teams.  [capterra](https://www.capterra.com/p/145635/UpKeep/reviews/) | Use a transparent, self-service builder. Let a facility manager create forms, approval flows, dashboards, SLA rules, and reports without consultants. Price by site, asset volume, or usage—not only by every technician account. |
+| **Integrations and operational data** | Its open/configurable architecture can support broad modeling, but implementation and integration may still be technical. | Independent comparisons cite integration challenges with business systems and IoT, creating manual work and data silos.  [limble](https://limble.com/learn/upkeep-alternatives-competitors) | Provide packaged connectors for Microsoft 365, Google Workspace, ERP, accounting, procurement, BMS/BAS, access control, HR, GIS, IoT gateways, and messaging. Include an event bus and documented APIs from day one. |
+| **Preventive-to-predictive transition** | Stronger on structured maintenance planning, meters, calendars, and asset data than many lightweight tools.  [openmaint](https://www.openmaint.org/en/resources/news/openmaint-2.2) | UpKeep offers AI/IIoT capabilities, but reviews describe predictive and IoT capabilities as separate or premium products.  [facilio](https://facilio.com/blog/upkeep-cmms-review/) | Start with explainable condition-based maintenance. Ingest existing BMS and sensor data, set thresholds, identify anomalies, and create a recommended work order with evidence—not just a sensor alarm. |
+| **Governance, compliance, and safety** | It can model processes, assets, documents, and SLAs, but configuring a compliant operating model may be a project. | Standard maintenance workflows may not fully cover permits, lockout/tagout, risk assessments, competency, regulated inspections, and evidence retention. | Make safety and compliance native: permit-to-work, LOTO, confined-space checks, escalation, competency expiry, statutory inspection schedules, immutable evidence, and auditor-ready records. |
+
+## Highest-value wedge
+
+A particularly strong product position would be:
+
+> **An offline-first facility maintenance operating system that turns every job into structured reliability data and automatically coordinates staff, contractors, inventory, compliance, and building systems.**
+
+This addresses the space between the two products:
+
+- From **openMAINT**, borrow asset hierarchy, location modeling, GIS/BIM relationships, preventive/corrective workflows, costs, inventory, and configurable processes. [openmaint](https://www.openmaint.org/en/sitemap)
+- From **UpKeep**, borrow rapid deployment, simple mobile work orders, QR-based access, checklists, notifications, and approachable field workflows. [upkeep](https://upkeep.com/demo/)
+- Add what both leave comparatively exposed: reliable offline use, failure intelligence, deep procurement, contractor collaboration, open integrations, and facility-wide context.
+
+## Features worth building first
+
+1. **One-minute work request**
+   - QR/NFC scan, photo/video, voice description, location auto-detection, urgency, and requester contact.
+   - AI suggests asset, category, priority, safety risk, and likely procedure—but allows human approval.
+
+2. **Technician execution mode**
+   - Offline checklist, step-by-step instructions, diagrams, manuals, safety controls, parts list, time capture, and signature.
+   - No need to navigate a large CMMS database.
+
+3. **Intelligent closeout**
+   - Require only the minimum useful fields.
+   - Convert voice notes into structured failure, cause, remedy, and recommendation codes.
+   - Detect vague entries such as “fixed” or “other.”
+
+4. **Failure and PM intelligence**
+   - Detect repeat failures by asset, room, component, contractor, and failure mode.
+   - Show whether PM actually reduces breakdowns.
+   - Recommend changes to frequency, checklist, spare parts, or replacement strategy.
+
+5. **Contractor workspace**
+   - Issue jobs, manage quotes, verify compliance documents, capture evidence, approve work, and calculate SLA and first-time-fix performance.
+
+6. **Open operational platform**
+   - API, webhooks, import/export, BMS/IoT integration, ERP/accounting connectors, and public data dictionary.
+   - Avoid forcing customers to buy a separate analytics or IoT product for basic operational insight.
+
+## What to validate before building
+
+These are promising gaps, not proof that every customer experiences them. UpKeep’s negative points come largely from user-review summaries and competitor analyses, so they should be validated with interviews rather than treated as universal defects. In particular, interview:
+
+- Technicians working in poor-connectivity areas.
+- Facilities managers handling multiple buildings.
+- Procurement teams managing spare parts and contractors.
+- Compliance managers responsible for statutory inspections.
+- Reliability engineers who currently export CMMS data to Excel or BI tools.
+- Small organizations priced out by per-user licensing.
+
+Ask them to demonstrate their last five maintenance jobs, not merely describe desired features. The strongest opportunity will be the step where they still use WhatsApp, paper, spreadsheets, phone calls, or repeated manual data entry.

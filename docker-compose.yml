@@ -1,0 +1,98 @@
+# Facilix — production deployment stack: PostgreSQL/PostGIS + MinIO + API + web.
+#
+# Local development does NOT use Docker (see README: local Postgres + backend/.env).
+# This file is the deployment/production shape: services run behind a reverse
+# proxy / ingress, DB is not exposed to the host, and all secrets come from a
+# .env file (or the orchestrator's secret store) — never the defaults below.
+#
+# Usage:
+#   cp .env.example .env           # set real secrets (JWT_SECRET, POSTGRES_*, MINIO_*)
+#   docker compose up -d --build
+
+name: facilix
+
+services:
+  db:
+    image: postgis/postgis:15-3.4
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-facilix_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-facilix_password}
+      POSTGRES_DB: ${POSTGRES_DB:-facilix}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Loads the schema automatically on first volume creation.
+      # Delete the volume to re-run it: docker compose down -v
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    # Production: do not publish the DB port to the host — services reach it
+    # over the compose network. Uncomment only for debugging with a local client:
+    # ports:
+    #   - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-facilix_user} -d ${POSTGRES_DB:-facilix}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-facilix_minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-facilix_minio_secret}
+    volumes:
+      - miniodata:/data
+    # Keep 9000 published so the API/other services can reach S3; put the
+    # console (9001) behind your reverse proxy rather than exposing it.
+    ports:
+      - "${MINIO_API_PORT:-9000}:9000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  api:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgres://${POSTGRES_USER:-facilix_user}:${POSTGRES_PASSWORD:-facilix_password}@db:5432/${POSTGRES_DB:-facilix}
+      # REAL deployments MUST set a strong random JWT_SECRET — the API refuses
+      # to boot in production without one.
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set in .env}
+      # Set "1" when behind a reverse proxy so express-rate-limit trusts X-Forwarded-For.
+      TRUST_PROXY: ${TRUST_PROXY:-0}
+      # S3/MinIO access for the documents module.
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-minio:9000}
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-facilix_minio}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-facilix_minio_secret}
+      MINIO_BUCKET: ${MINIO_BUCKET:-facilix-documents}
+    ports:
+      - "${API_PORT:-4000}:4000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "${FRONTEND_PORT:-5173}:80"
+
+volumes:
+  pgdata:
+  miniodata:

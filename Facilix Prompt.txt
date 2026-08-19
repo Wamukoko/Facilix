@@ -1,0 +1,992 @@
+# Facilix — Property & Facility Management Web App
+
+## Product Vision
+
+Build **Facilix**, a modern, enterprise-grade, self-hosted **Property & Facility Maintenance Management Platform** designed for property managers, estate managers, facility managers, landlords, maintenance teams, contractors, and service providers.
+
+Facilix should centralize property assets, maintenance operations, work orders, preventive maintenance, suppliers, inventory, budgets, documents, and reporting into one intelligent platform.
+
+The product should feel like a combination of a **modern property management system, CMMS, maintenance command center, and tenant service portal** — with a clean corporate interface optimized for real-world property operations.
+
+## Brand
+
+**Name:** Facilix
+**Meaning:** Facility + Intelligence / Management
+
+**Brand personality:** Professional, reliable, intelligent, operational, modern, efficient, trustworthy.
+
+Avoid making the interface look like a generic construction or industrial CMMS. Facilix should specifically feel designed for **modern property and estate management**.
+
+Use a sophisticated corporate visual language with:
+
+* Clean layouts
+* Generous whitespace
+* Strong information hierarchy
+* Professional typography
+* Subtle cards and borders
+* Clear status indicators
+* Data-rich dashboards
+* Responsive design
+* Desktop-first operations dashboard with excellent tablet/mobile support
+
+---
+
+# Core Users
+
+Design the platform around role-based access for:
+
+1. **Super Administrator**
+2. **Organization Administrator**
+3. **Property Manager**
+4. **Facility Manager**
+5. **Maintenance Supervisor**
+6. **Technician**
+7. **Accounts/Finance User**
+8. **Procurement Officer**
+9. **Supplier/Contractor**
+10. **Tenant/Resident**
+11. **Management/Executive User**
+
+Implement RBAC throughout the interface so users only see features and information relevant to their permissions.
+
+---
+
+# Application Structure
+
+Create a persistent application shell consisting of:
+
+### Left Sidebar
+
+* Dashboard
+* Properties
+* Buildings & Units
+* Assets
+* Work Orders
+* Preventive Maintenance
+* Inspections
+* Suppliers & Contractors
+* Inventory & Spare Parts
+* Procurement
+* Budgets & Costs
+* Documents
+* Reports & Analytics
+* GIS / Map
+* Tenant Requests
+* Notifications
+* Users & Roles
+* Settings
+
+Include collapsible navigation.
+
+### Top Navigation
+
+Include:
+
+* Global search
+* Property selector
+* Quick-create button
+* Notifications
+* Tasks
+* Help
+* User profile
+* Organization switcher where applicable
+
+The interface should support multiple properties, estates, buildings, and organizations.
+
+---
+
+# Dashboard
+
+Create a powerful executive operations dashboard.
+
+Display:
+
+### KPI Cards
+
+* Total Properties
+* Buildings
+* Units
+* Active Assets
+* Open Work Orders
+* Overdue Work Orders
+* Preventive Maintenance Due
+* Maintenance Cost
+* Inventory Value
+* Pending Tenant Requests
+
+### Operational Overview
+
+Include visualizations for:
+
+* Work orders by status
+* Work orders by trade
+* Preventive vs breakdown maintenance
+* Maintenance costs over time
+* Open vs completed requests
+* Technician workload
+* Supplier performance
+* Asset condition
+* Maintenance response time
+
+### Work Order Board
+
+Create a Kanban-style board:
+
+**Open → Assigned → In Progress → Awaiting Parts → Completed → Verified → Closed**
+
+Allow drag-and-drop status changes subject to permissions.
+
+### Priority Feed
+
+Show:
+
+* Emergency breakdowns
+* Overdue maintenance
+* Critical assets
+* Pending approvals
+* Low-stock spare parts
+* Expiring supplier contracts
+* Upcoming inspections
+
+---
+
+# Properties Module
+
+Create a complete property hierarchy:
+
+**Organization → Property/Estate → Building → Floor → Unit → Asset**
+
+Property records should support:
+
+* Property name
+* Property type
+* Address
+* GPS coordinates
+* Property manager
+* Number of buildings
+* Number of units
+* Occupancy
+* Property status
+* Photos
+* Documents
+* Notes
+
+Support property types such as:
+
+* Residential Estate
+* Apartment Complex
+* Commercial Building
+* Office Park
+* Retail Centre
+* Mixed-Use Development
+* Industrial Property
+* Hospitality Property
+* Institutional Property
+
+Include map visualization using **Leaflet + PostGIS**.
+
+---
+
+# Asset Management
+
+Create an intelligent asset registry.
+
+Each asset should have:
+
+* Asset ID
+* Asset name
+* Asset type
+* Property
+* Building
+* Location
+* Installation date
+* Manufacturer
+* Model
+* Serial number
+* Warranty
+* Condition
+* Criticality
+* Current status
+* Maintenance history
+* Documents
+* Photos
+* QR code
+* Meter readings
+* Maintenance plans
+
+### Asset Categories
+
+Include:
+
+* Electrical
+* Plumbing
+* HVAC
+* Pumps
+* Generators
+* Fire Safety
+* Security
+* Lifts/Elevators
+* Water Systems
+* Irrigation
+* Landscaping/Green Areas
+* Janitorial Equipment
+* Building Systems
+* Doors & Windows
+* Roofing
+* Structural Components
+* Other
+
+Allow flexible **JSON attributes** for trade-specific specifications.
+
+Example:
+
+Electrical:
+
+`panel_amperage`, `voltage`, `phase`, `breaker_type`
+
+Plumbing:
+
+`pipe_material`, `diameter`, `pressure_rating`
+
+HVAC:
+
+`capacity`, `refrigerant`, `manufacturer`
+
+---
+
+# Preventive Maintenance
+
+Create a maintenance planning engine.
+
+Users should be able to create maintenance plans based on:
+
+* Daily
+* Weekly
+* Monthly
+* Quarterly
+* Semi-annually
+* Annually
+* Custom schedules
+* Meter readings
+* Usage thresholds
+
+Example:
+
+**Quarterly Plumbing Inspection**
+
+Property: Greatwall Gardens
+Asset: Main Water Pump
+Frequency: Every 3 Months
+Assigned Team: Plumbing
+Checklist: Pump pressure, valves, leaks, electrical connection
+
+The system should automatically generate work orders when maintenance becomes due.
+
+Provide:
+
+* Maintenance calendar
+* Upcoming maintenance
+* Overdue maintenance
+* Maintenance history
+* Recurring schedules
+* Maintenance checklists
+* Meter-based maintenance
+* Automatic work-order generation
+
+---
+
+# Work Orders
+
+This is the operational heart of Facilix.
+
+Create a detailed work-order system supporting:
+
+* Breakdown maintenance
+* Preventive maintenance
+* Inspection
+* Tenant request
+* Emergency
+* Scheduled work
+* Internal task
+* Supplier assignment
+
+Each work order should contain:
+
+* Work order number
+* Title
+* Description
+* Property
+* Building
+* Unit
+* Asset
+* Trade
+* Priority
+* Status
+* Request source
+* Assigned technician
+* Supplier
+* Estimated cost
+* Actual cost
+* Parts used
+* Labour
+* Attachments
+* Photos
+* Comments
+* Activity history
+* Created date
+* Due date
+* Completion date
+
+### Trades
+
+Support:
+
+* Plumbing
+* Electrical
+* Gardening
+* Janitorial
+* HVAC
+* Carpentry
+* Masonry
+* Painting
+* Security
+* General Maintenance
+
+### Priority
+
+* Emergency
+* Critical
+* High
+* Medium
+* Low
+
+### Workflow
+
+**Reported → Open → Assigned → In Progress → Awaiting Parts → Completed → Verified → Closed**
+
+Include SLA tracking and escalation indicators.
+
+---
+
+# Technician Experience
+
+Create a mobile-friendly technician workspace.
+
+Technicians should see:
+
+* My Work Orders
+* Today's Tasks
+* Overdue Tasks
+* Priority Jobs
+* Maintenance Checklist
+* Asset Information
+* Work History
+
+Allow technicians to:
+
+* Accept jobs
+* Start work
+* Pause work
+* Add notes
+* Upload photographs
+* Record labour
+* Record parts used
+* Capture meter readings
+* Complete checklists
+* Mark work completed
+* Capture customer/manager confirmation
+
+Support offline-capable PWA functionality.
+
+---
+
+# Tenant / Resident Portal
+
+Create a simple tenant-facing portal.
+
+Tenants should be able to:
+
+* Submit maintenance requests
+* Upload photographs
+* Select issue category
+* Track request status
+* Receive notifications
+* View previous requests
+* Communicate with management
+* Confirm completed work
+
+Example request categories:
+
+* Plumbing
+* Electrical
+* Water
+* Security
+* Cleaning
+* Gardening
+* Common Area
+* Other
+
+The tenant interface should be substantially simpler than the administrator dashboard.
+
+---
+
+# Suppliers & Contractors
+
+Create a supplier management module.
+
+Store:
+
+* Supplier name
+* Company
+* Contact person
+* Phone
+* Email
+* Address
+* Trade
+* Services
+* Contract information
+* Rates
+* Insurance
+* Certifications
+* Compliance documents
+* Performance score
+* Work history
+* Total expenditure
+
+Provide supplier performance analytics based on:
+
+* Response time
+* Completion time
+* Cost
+* Quality
+* Repeat jobs
+* SLA compliance
+
+---
+
+# Inventory & Spare Parts
+
+Create an inventory management system for maintenance materials.
+
+Track:
+
+* Item
+* SKU
+* Category
+* Quantity
+* Minimum stock
+* Reorder level
+* Unit cost
+* Supplier
+* Storage location
+* Stock value
+
+Support:
+
+* Stock-in
+* Stock-out
+* Transfers
+* Adjustments
+* Returns
+* Parts consumed against work orders
+* Low-stock alerts
+* Inventory valuation
+
+Examples:
+
+* PVC pipes
+* Valves
+* Electrical breakers
+* Cables
+* Bulbs
+* Cleaning chemicals
+* Gloves
+* Paint
+* Irrigation components
+* Plumbing fittings
+
+---
+
+# Procurement
+
+Create procurement workflows:
+
+**Request → Approval → Purchase Order → Delivery → Stock/Invoice**
+
+Support:
+
+* Purchase requests
+* Approval workflows
+* Purchase orders
+* Supplier quotations
+* Goods received
+* Invoice references
+* Budget checks
+
+---
+
+# Budgets & Cost Tracking
+
+Track maintenance expenditure by:
+
+* Property
+* Building
+* Unit
+* Asset
+* Trade
+* Supplier
+* Work order
+* Maintenance type
+
+Provide:
+
+* Budget vs actual
+* Monthly expenditure
+* Cost per property
+* Cost per asset
+* Cost per unit
+* Supplier expenditure
+* Preventive vs reactive costs
+
+---
+
+# Inspections
+
+Create configurable inspection templates.
+
+Examples:
+
+* Property inspection
+* Fire safety inspection
+* Electrical inspection
+* Plumbing inspection
+* Generator inspection
+* Water system inspection
+* Common area inspection
+* Landscaping inspection
+* Janitorial inspection
+
+Allow inspectors to:
+
+* Complete checklists
+* Record defects
+* Upload photos
+* Assign corrective actions
+* Generate work orders automatically
+
+---
+
+# Documents
+
+Create centralized document management.
+
+Documents can be associated with:
+
+* Properties
+* Buildings
+* Units
+* Assets
+* Suppliers
+* Work orders
+* Contracts
+* Maintenance plans
+
+Support:
+
+* PDF
+* Images
+* Word documents
+* Excel documents
+* Certificates
+* Warranties
+* Inspection reports
+
+Use S3-compatible storage such as **MinIO** or AWS S3.
+
+---
+
+# GIS / Property Mapping
+
+Implement interactive mapping using:
+
+* Leaflet
+* PostGIS
+
+Display:
+
+* Properties
+* Buildings
+* Assets
+* Maintenance locations
+* Work orders
+* Service areas
+
+Allow users to click a property on the map and immediately access its operational information.
+
+---
+
+# Notifications
+
+Create a unified notification system supporting:
+
+* In-app notifications
+* Email
+* SMS
+* Push notifications
+* WhatsApp integration where configured
+
+Notify users about:
+
+* New work orders
+* Assignments
+* Escalations
+* Overdue jobs
+* Preventive maintenance
+* Low inventory
+* Approvals
+* Tenant requests
+* Completed work
+
+---
+
+# Reports & Analytics
+
+Create an advanced reporting center.
+
+Reports should include:
+
+### Maintenance
+
+* Work order report
+* Preventive maintenance compliance
+* Breakdown analysis
+* Response time
+* Resolution time
+* Repeat failures
+
+### Assets
+
+* Asset register
+* Asset condition
+* Asset downtime
+* Maintenance cost by asset
+* Asset lifecycle
+
+### Financial
+
+* Maintenance expenditure
+* Budget vs actual
+* Supplier expenditure
+* Inventory value
+* Cost by property
+
+### Management
+
+* Property performance
+* Technician productivity
+* Supplier performance
+* SLA compliance
+* Tenant satisfaction
+
+Allow export to:
+
+* PDF
+* Excel
+* CSV
+
+---
+
+# Search
+
+Implement powerful global search.
+
+Users should be able to search:
+
+* Properties
+* Buildings
+* Units
+* Assets
+* Work orders
+* Suppliers
+* Inventory
+* Tenants
+* Documents
+
+Support filters, saved searches and advanced filtering.
+
+---
+
+# Technical Architecture
+
+Build Facilix as a modern self-hosted application.
+
+### Frontend
+
+Prefer:
+
+* React
+* TypeScript
+* Vite or Next.js
+* Tailwind CSS
+* shadcn/ui
+* Recharts
+* Leaflet
+
+### Backend
+
+Use:
+
+* Node.js
+* Express
+* REST API
+* JWT authentication
+* RBAC
+* Organization-level data isolation
+
+### Database
+
+Use:
+
+* PostgreSQL 15+
+* PostGIS
+* JSONB for flexible asset attributes
+
+### Background Processing
+
+Use scheduled jobs for:
+
+* Preventive maintenance generation
+* SLA monitoring
+* Escalations
+* Notifications
+* Recurring tasks
+
+### Storage
+
+Use:
+
+* S3
+* MinIO
+
+### Deployment
+
+The application should be Docker-ready.
+
+Provide:
+
+* Dockerfile
+* docker-compose.yml
+* PostgreSQL/PostGIS container
+* Backend container
+* Frontend container
+* Object storage
+* Environment configuration
+
+---
+
+# Security
+
+Implement enterprise-grade security:
+
+* JWT authentication
+* Password hashing with bcrypt
+* RBAC
+* Organization-level tenant isolation
+* API authorization middleware
+* Audit logs
+* Secure file access
+* Input validation
+* Rate limiting
+* CORS configuration
+* Secure environment variables
+* Session/token management
+
+Never allow users from one organization to access another organization's properties, assets, tenants, work orders or financial information.
+
+---
+
+# UX Requirements
+
+The interface must prioritize **speed of operation**.
+
+A maintenance supervisor should be able to create a work order in seconds.
+
+A technician should be able to open a task, understand the problem, view the asset, complete the checklist and close the task with minimal navigation.
+
+A property manager should immediately understand the operational condition of the entire portfolio from the dashboard.
+
+Use:
+
+* Command palette
+* Keyboard shortcuts
+* Quick actions
+* Bulk actions
+* Smart filters
+* Saved views
+* Contextual actions
+* Responsive tables
+* Drawer-based detail panels
+* Confirmation dialogs for destructive actions
+
+Avoid excessive modal windows and unnecessary form fields.
+
+---
+
+# Visual Design Direction
+
+Create a premium B2B SaaS aesthetic.
+
+The design should communicate:
+
+**Control + Reliability + Intelligence + Efficiency**
+
+Use a restrained corporate color system with a strong primary brand color, neutral backgrounds, clear success/warning/error states, and high-contrast typography.
+
+Use charts and visualizations carefully. Avoid decorative graphics that do not contribute to operational understanding.
+
+Cards should be clean and compact rather than oversized.
+
+Tables should be highly usable because the application will contain large operational datasets.
+
+---
+
+# Key Screens to Build
+
+Create polished screens for:
+
+1. Login
+2. Organization setup
+3. Main dashboard
+4. Property portfolio
+5. Property details
+6. Building details
+7. Asset register
+8. Asset details
+9. Work order board
+10. Work order creation
+11. Work order details
+12. Preventive maintenance calendar
+13. Maintenance plan builder
+14. Technician dashboard
+15. Inspection checklist
+16. Suppliers
+17. Supplier details
+18. Inventory
+19. Purchase orders
+20. Budget dashboard
+21. Documents
+22. GIS map
+23. Tenant portal
+24. Reports
+25. Notifications
+26. Users & roles
+27. Settings
+
+---
+
+# Sample Operational Scenario
+
+Use a realistic property-management scenario throughout the prototype.
+
+Example:
+
+**Property:** Greatwall Gardens Estate
+**Location:** Athi River, Machakos County, Kenya
+
+Example assets:
+
+* Water Pump
+* Generator
+* Electrical Distribution Board
+* Fire Pump
+* Irrigation System
+* Landscaping Areas
+* Cleaning Equipment
+* CCTV System
+
+Example work order:
+
+**WO-2026-00124**
+
+> Main water pump experiencing abnormal pressure.
+
+Trade: Plumbing
+Priority: High
+Asset: Main Water Pump
+Assigned to: Plumbing Technician
+Status: In Progress
+
+The prototype should demonstrate the complete lifecycle from tenant/property manager report → assignment → technician action → parts consumption → completion → verification → closure.
+
+---
+
+# Data Model
+
+Design the backend around these core entities:
+
+* Organizations
+* Users
+* Roles
+* Properties
+* Buildings
+* Floors
+* Units
+* Assets
+* Asset Categories
+* Maintenance Plans
+* Maintenance Checklists
+* Work Orders
+* Work Order Activities
+* Inspections
+* Inspection Templates
+* Suppliers
+* Supplier Contracts
+* Inventory Items
+* Inventory Movements
+* Purchase Requests
+* Purchase Orders
+* Budgets
+* Costs
+* Documents
+* Notifications
+* Tenants
+* Tenant Requests
+* Audit Logs
+
+Ensure relationships support full operational traceability.
+
+---
+
+# AI-Ready Architecture
+
+Design the data architecture so future AI capabilities can be added without restructuring the application.
+
+Potential future capabilities:
+
+* Predictive maintenance
+* Failure-risk prediction
+* Maintenance cost forecasting
+* Automatic work-order categorization
+* Intelligent technician assignment
+* Supplier recommendations
+* Natural-language property search
+* AI-generated maintenance reports
+* Anomaly detection
+* Asset replacement recommendations
+* Maintenance schedule optimization
+
+---
+
+# Final Product Standard
+
+Facilix should not look like a simple CRUD administration system.
+
+It should feel like a **professional property operations command center** capable of managing thousands of units, buildings, assets, maintenance tasks and service requests.
+
+Prioritize:
+
+**Operational visibility → Fast execution → Accountability → Cost control → Preventive maintenance → Data-driven management.**
+
+Build the interface first with realistic sample data, then connect it to the PostgreSQL/PostGIS backend and REST API.
+
+The finished application should be responsive, accessible, scalable, self-hostable, modular, and production-ready.
