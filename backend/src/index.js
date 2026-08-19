@@ -35,7 +35,10 @@ import auditLogRouter from "./routes/auditLog.js";
 import budgetsRouter from "./routes/budgets.js";
 
 const app = express();
-app.use(cors());
+
+// In production, only allow requests from the Vercel frontend + local dev.
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
+app.use(cors({ origin: CORS_ORIGIN.split(",").map((s) => s.trim()), credentials: true }));
 // 35mb body cap so offline evidence (base64 photos/videos up to the 20MB
 // file cap) can travel through /sync/ops without tripping the 100kb default.
 app.use(express.json({ limit: "35mb" }));
